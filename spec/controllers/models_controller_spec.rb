@@ -9,6 +9,7 @@ RSpec.describe ModelsController, type: :controller do
     end
 
     it { expect(response).to have_http_status :ok }
+    it { expect(Model.all).not_to be_empty }
     it { expect(assigns["models"].sample.make_id).to eq(@make.id)}
   end
 end

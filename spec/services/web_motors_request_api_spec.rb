@@ -20,12 +20,11 @@ RSpec.describe WebMotorsRequestAPI do
   end
 
   describe '.get_models' do
-    before(:all) do
+    before(:each) do
       Make.populate_from_webmotors
-      @make = Make.all.sample
     end
 
-    subject { WebMotorsRequestAPI.get_models(@make) }
+    subject { WebMotorsRequestAPI.get_models(Make.all.sample) }
     it { is_expected.to be_kind_of(Array) }
     it { is_expected.not_to be_empty }
     it 'has hash' do

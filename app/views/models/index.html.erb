@@ -1,4 +1,5 @@
-<a href="/"><< Voltar</a>
+<%= link_to '<< Voltar', :back %>
+
 <ul>
   <% @models.each do |model| %>
     <li><%= model.name %></li>

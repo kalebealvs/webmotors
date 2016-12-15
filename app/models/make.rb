@@ -1,4 +1,5 @@
 class Make < ActiveRecord::Base
+  has_many :models
   validates :name, :webmotors_id, uniqueness: true
 
   def self.populate_from_webmotors

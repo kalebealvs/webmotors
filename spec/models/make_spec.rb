@@ -6,6 +6,10 @@ RSpec.describe Make, type: :model do
     it { is_expected.to validate_uniqueness_of(:name) }
   end
 
+  describe 'associations' do
+    it { is_expected.to have_many(:models) }
+  end
+
   describe '.populate_from_webmotors' do
     it 'populate empty database' do
       expect(Make.all).to be_empty

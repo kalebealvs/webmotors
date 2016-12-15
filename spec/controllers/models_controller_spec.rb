@@ -5,7 +5,7 @@ RSpec.describe ModelsController, type: :controller do
     before(:each) do
       Make.populate_from_webmotors
       @make = Make.all.sample
-      get :index, webmotors_make_id: @make.webmotors_id
+      get :index, make_id: @make.id
     end
 
     it { expect(response).to have_http_status :ok }

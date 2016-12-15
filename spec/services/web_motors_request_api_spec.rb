@@ -18,4 +18,18 @@ RSpec.describe WebMotorsRequestAPI do
       expect(subject.first).to be_kind_of(String)
     end
   end
+
+  describe '.get_models' do
+    before(:all) do
+      Make.populate_from_webmotors
+      @make = Make.all.sample
+    end
+
+    subject { WebMotorsRequestAPI.get_models(@make) }
+    it { is_expected.to be_kind_of(Array) }
+    it { is_expected.not_to be_empty }
+    it 'has hash' do
+      expect(subject.first).to be_kind_of(Hash)
+    end
+  end
 end

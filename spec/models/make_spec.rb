@@ -76,4 +76,49 @@ RSpec.describe Make, type: :model do
       end
     end
   end
+
+  describe '.names' do
+    subject { Make.names }
+    after(:each) do
+      makes = WebMotorsRequestAPI.get_makes
+      names = WebMotorsRequestAPI.get_makes_names
+      expect(Make.names(makes)).to match_array(names)
+    end
+
+    it 'empty database' do
+      is_expected.to be_empty
+    end
+
+    it 'populated database' do
+      Make.populate_from_webmotors
+      is_expected.not_to be_empty
+    end
+  end
+
+  describe '.select_new' do
+    before(:each) do
+      @makes = WebMotorsRequestAPI.get_makes
+    end
+
+    context 'empty database' do
+      it { expect(Make.send(:select_new, @makes)).to match_array(@makes) }
+      it { expect(Make.send(:select_new, Array.new)).to eq(Array.new) }
+    end
+
+    context 'populated database' do
+      before(:each) do
+        Make.populate_from_webmotors
+        @makes_request = WebMotorsRequestAPI.get_makes
+      end
+      it { expect(Make.send(:select_new, @makes_request)).to be_empty }
+
+      it 'new makes' do
+        Make.last(2).each(&:destroy)
+        stored_makes = Make.all.names
+        new_makes = Array.new
+        @makes_request.each { |make| new_makes << make if stored_makes.exclude? make['Nome'] }
+        expect(Make.send(:select_new, @makes_request)).to match_array(new_makes)
+      end
+    end
+  end
 end

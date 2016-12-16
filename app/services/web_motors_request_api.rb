@@ -3,7 +3,9 @@ class WebMotorsRequestAPI
   URI_MODELS = URI('http://www.webmotors.com.br/carro/modelos')
 
   def self.get_makes
-    JSON.parse Net::HTTP.post_form(URI_MANUFACTURERS, {}).body
+    makes = JSON.parse Net::HTTP.post_form(URI_MANUFACTURERS, {}).body
+    makes.each { |make| makes.delete make if make['Nome'] == ''}
+    return makes.uniq
   end
 
   def self.get_makes_names

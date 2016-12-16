@@ -17,6 +17,7 @@ RSpec.describe WebMotorsRequestAPI do
     it 'has string' do
       expect(subject.first).to be_kind_of(String)
     end
+    it { expect(subject.count).to eq(WebMotorsRequestAPI.get_makes.count) }
   end
 
   describe '.get_models' do

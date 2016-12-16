@@ -33,7 +33,7 @@ RSpec.describe Make, type: :model do
         allow(WebMotorsRequestAPI).to receive(:get_makes) { manufacturers }
         Make.populate_from_webmotors
         expect(Make.all.count).to eq(@count + 1)
-        expect(Make.where(name: manufacturers.first['Nome']).count).to eq(1)
+        expect(Make.where(name: manufacturers.first['Nome']).exists?).to eq(true)
       end
     end
   end
@@ -70,7 +70,7 @@ RSpec.describe Make, type: :model do
         allow(WebMotorsRequestAPI).to receive(:get_models) { model }
         @make.populate_models_from_webmotors
         expect(@make.models.count).to eq(@model_count + 1)
-        expect(@make.models.where(name: model.first['Nome']).count).to eq(1)
+        expect(@make.models.where(name: model.first['Nome']).exists?).to eq(true)
       end
     end
   end

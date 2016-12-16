@@ -79,19 +79,22 @@ RSpec.describe Make, type: :model do
 
   describe '.names' do
     subject { Make.names }
-    after(:each) do
-      makes = WebMotorsRequestAPI.get_makes
-      names = WebMotorsRequestAPI.get_makes_names
-      expect(Make.names(makes)).to match_array(names)
+    let(:api_request) { WebMotorsRequestAPI.get_makes }
+    let(:api_request_names) { WebMotorsRequestAPI.get_makes_names }
+
+    context 'empty database' do
+      it { is_expected.to be_empty }
+      it { expect(Make.names(api_request)).to match_array(api_request_names) }
     end
 
-    it 'empty database' do
-      is_expected.to be_empty
-    end
+    context 'populated database' do
+      before(:each) do
+        Make.populate_from_webmotors
+      end
 
-    it 'populated database' do
-      Make.populate_from_webmotors
-      is_expected.not_to be_empty
+      it { is_expected.not_to be_empty }
+      it { expect(Make.names).to match_array(api_request_names) }
+      it { expect(Make.names(api_request.last(2))).to match_array(api_request_names.last(2)) }
     end
   end
 

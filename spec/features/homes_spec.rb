@@ -26,7 +26,7 @@ RSpec.feature "Homes", type: :feature do
       subject { page }
       it { is_expected.to have_current_path models_path('make_id' => @make.id) }
       it { is_expected.to have_text @make.models.sample.name }
-      it { is_expected.not_to have_text @make2.models.sample.name }
+      it { is_expected.not_to have_title @make2.models.sample.name }
       it { is_expected.to have_link("<< Voltar") }
 
       it 'returns to root after click on back link' do

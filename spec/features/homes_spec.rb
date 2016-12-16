@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.feature "Homes", type: :feature do
   describe 'application root' do
     before(:each) do
-      @names = WebMotorsRequestAPI.get_makes_names
       visit root_path
     end
 
@@ -15,7 +14,7 @@ RSpec.feature "Homes", type: :feature do
 
     context 'redirect to model index' do
       before(:each) do
-        name = @names.sample
+        name = WebMotorsRequestAPI.get_makes_names.sample
         page.select name, from: 'make_id'
         @make = Make.find_by name: name
         @make2 = Make.where.not(id: @make.id).sample
@@ -23,7 +22,6 @@ RSpec.feature "Homes", type: :feature do
         click_button 'Buscar modelos'
       end
 
-      subject { page }
       it { is_expected.to have_current_path models_path('make_id' => @make.id) }
       it { is_expected.to have_text @make.models.sample.name }
       it { is_expected.not_to have_title @make2.models.sample.name }

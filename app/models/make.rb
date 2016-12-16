@@ -14,7 +14,7 @@ class Make < ActiveRecord::Base
   def populate_models_from_webmotors
     return if webmotors_id.nil?
     WebMotorsRequestAPI.get_models(webmotors_id).each do |model|
-      models.create(name: model["Nome"]) if Model.where(name: model["Nome"]).size == 0
+      models.create(name: model["Nome"]) if Model.where(name: model["Nome"]).none?
     end
   end
 end

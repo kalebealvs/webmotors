@@ -11,6 +11,6 @@ class WebMotorsRequestAPI
   end
 
   def self.get_models(make)
-    JSON.parse Net::HTTP.post_form(URI_MODELS, { marca: make.webmotors_id }).body
+    JSON.parse Net::HTTP.post_form(URI_MODELS, { marca: make }).body
   end
 end

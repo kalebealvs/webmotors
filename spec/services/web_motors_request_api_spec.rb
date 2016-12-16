@@ -24,7 +24,7 @@ RSpec.describe WebMotorsRequestAPI do
       Make.populate_from_webmotors
     end
 
-    subject { WebMotorsRequestAPI.get_models(Make.all.sample) }
+    subject { WebMotorsRequestAPI.get_models(Make.all.sample.webmotors_id) }
     it { is_expected.to be_kind_of(Array) }
     it { is_expected.not_to be_empty }
     it 'has hash' do

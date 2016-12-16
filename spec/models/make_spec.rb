@@ -4,6 +4,8 @@ RSpec.describe Make, type: :model do
   describe 'validations' do
     it { is_expected.to validate_uniqueness_of(:webmotors_id) }
     it { is_expected.to validate_uniqueness_of(:name) }
+    it { is_expected.to validate_presence_of(:webmotors_id) }
+    it { is_expected.to validate_presence_of(:name) }
   end
 
   describe 'associations' do

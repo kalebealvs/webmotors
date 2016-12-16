@@ -1,6 +1,7 @@
 class Make < ActiveRecord::Base
   has_many :models
   validates :name, :webmotors_id, uniqueness: true
+  validates :name, :webmotors_id, presence: true
 
   def self.populate_from_webmotors
     WebMotorsRequestAPI.get_makes.each do |make_params|

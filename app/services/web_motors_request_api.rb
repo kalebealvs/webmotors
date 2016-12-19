@@ -1,6 +1,6 @@
 class WebMotorsRequestAPI
-  URI_MANUFACTURERS = URI('http://www.webmotors.com.br/carro/marcas')
-  URI_MODELS = URI('http://www.webmotors.com.br/carro/modelos')
+  URI_MANUFACTURERS = URI('https://www.webmotors.com.br/carro/marcas')
+  URI_MODELS = URI('https://www.webmotors.com.br/carro/modelos')
 
   def self.get_makes
     makes = JSON.parse Net::HTTP.post_form(URI_MANUFACTURERS, {}).body
